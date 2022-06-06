@@ -16,7 +16,7 @@ class CreatingFiles:
         if not os.path.exists(directory_name):
             os.mkdir(directory_name)
 
-    def __generation_name_file(self, img_format):
+    def __generation_name_file(self, img_format: str) -> str:
         self.numer_image += 1
         return f'./{self.directory_name}/{self.numer_image}.{img_format.lower()}'
 
@@ -36,8 +36,6 @@ class CreatingFiles:
         base64_string = img_src.split('base64,')[1].encode('utf8')
         img_data = BytesIO(base64.decodebytes(base64_string))
         self.save_img(img_data)
-
-
 
 
 class GoogleSpider(scrapy.Spider):
