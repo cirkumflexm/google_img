@@ -7,6 +7,8 @@ from scrapy.crawler import CrawlerProcess
 from PIL import Image
 import requests
 
+from settings import scrapy_settings
+
 
 class CreatingFiles:
     numer_image = 0
@@ -42,19 +44,7 @@ class GoogleSpider(scrapy.Spider):
     name = "google_img"
     quantity_images = 15
     numer_image = 0
-    custom_settings = {
-        'ROBOTSTXT_OBEY': False,
-        'DOWNLOAD_HANDLERS': {
-            "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-            "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-        },
-        'TWISTED_REACTOR': "twisted.internet.asyncioreactor.AsyncioSelectorReactor",
-        'DEFAULT_REQUEST_HEADERS': {
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-            'Accept-Language': 'ru',
-            'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
-        }
-    }
+    custom_settings = scrapy_settings
 
     def start_requests(self):
         yield scrapy.Request(f"https://www.google.com/search?q={search_query}",
